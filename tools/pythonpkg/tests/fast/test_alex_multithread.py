@@ -111,7 +111,8 @@ class TestPythonMultithreading(object):
         # Kick off multiple threads (in the same process)
         # Pass in the same connection as an argument, and an object to store the results
         threads = [
-            Thread(target=insert_from_same_connection, args=(duckdb_con,), name=f'my_thread_{i}') for i in range(thread_count)
+            Thread(target=insert_from_same_connection, args=(duckdb_con,), name=f'my_thread_{i}')
+            for i in range(thread_count)
         ]
         for thread in threads:
             thread.start()
