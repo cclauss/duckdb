@@ -316,12 +316,9 @@ def main():
         common_clang_tidy_args.append("--use-color")
     if args.allow_no_checks:
         common_clang_tidy_args.append("--allow-no-checks")
-    for arg in args.extra_arg:
-        common_clang_tidy_args.append("-extra-arg=%s" % arg)
-    for arg in args.extra_arg_before:
-        common_clang_tidy_args.append("-extra-arg-before=%s" % arg)
-    for plugin in args.plugins:
-        common_clang_tidy_args.append("-load=%s" % plugin)
+    common_clang_tidy_args.extend("-extra-arg=%s" % arg for arg in args.extra_arg)
+    common_clang_tidy_args.extend("-extra-arg-before=%s" % arg for arg in args.extra_arg_before)
+    common_clang_tidy_args.extend("-load=%s" % plugin for plugin in args.plugins)
 
     for name in lines_by_file:
         line_filter_json = json.dumps([{"name": name, "lines": lines_by_file[name]}], separators=(",", ":"))

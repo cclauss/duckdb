@@ -58,10 +58,7 @@ def analyze_includes(dir):
 for compile_dir in amalgamation.compile_directories:
     analyze_includes(compile_dir)
 
-kws = []
-for entry in include_counts.keys():
-    kws.append([entry, include_counts[entry]])
-
+kws = [[entry, value] for entry, value in include_counts.items()]
 kws.sort(key=lambda tup: -tup[1])
 for k in range(0, len(kws)):
     include_file = kws[k][0]

@@ -342,9 +342,7 @@ def setup_data_files(data_files):
         if directory not in directory_map:
             directory_map[directory] = []
         directory_map[directory].append(normalized_fpath)
-    new_data_files = []
-    for kv in directory_map.keys():
-        new_data_files.append((kv, directory_map[kv]))
+    new_data_files = list(directory_map.items())
     return new_data_files
 
 

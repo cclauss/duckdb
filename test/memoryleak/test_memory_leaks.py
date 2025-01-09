@@ -144,9 +144,7 @@ def has_memory_leak(rss):
     if len(rss) <= measurement_count:
         # not enough measurements yet
         return True
-    differences = []
-    for i in range(1, len(rss)):
-        differences.append(rss[i] - rss[i - 1])
+    differences = [rss[i] - rss[i - 1] for i in range(1, len(rss))]
     max_memory = max(rss)
     sum_differences = sum(differences[-measurement_count:])
     return sum_differences > (max_memory * args.threshold_percentage + args.threshold_absolute)

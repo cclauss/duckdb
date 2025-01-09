@@ -8,14 +8,12 @@ import argparse
 from typing import Dict, List, Any
 import numpy as np
 
-TPCH_QUERIES = []
 res = duckdb.execute(
     """
     select query from tpch_queries()
 """
 ).fetchall()
-for x in res:
-    TPCH_QUERIES.append(x[0])
+TPCH_QUERIES = [x[0] for x in res]
 
 parser = argparse.ArgumentParser()
 parser.add_argument("--verbose", action="store_true", help="Enable verbose mode", default=False)

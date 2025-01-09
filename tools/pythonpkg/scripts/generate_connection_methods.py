@@ -112,8 +112,7 @@ def generate():
             names = method['name']
         else:
             names = [method['name']]
-        for name in names:
-            body.append(create_definition(name, method))
+        body.extend(create_definition(name, method) for name in names)
 
     # ---- End of generation code ----
 

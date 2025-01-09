@@ -94,10 +94,8 @@ def get_tidy_invocation(
         (handle, name) = tempfile.mkstemp(suffix='.yaml', dir=tmpdir)
         os.close(handle)
         start.append(name)
-    for arg in extra_arg:
-        start.append('-extra-arg=%s' % arg)
-    for arg in extra_arg_before:
-        start.append('-extra-arg-before=%s' % arg)
+    start.extend('-extra-arg=%s' % arg for arg in extra_arg)
+    start.extend('-extra-arg-before=%s' % arg for arg in extra_arg_before)
     start.append('-p=' + build_path)
     if quiet:
         start.append('--quiet')

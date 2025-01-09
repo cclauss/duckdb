@@ -50,11 +50,7 @@ def parse_extensions(dir):
 old_extensions = parse_extensions(args.old_extension_dir)
 new_extensions = parse_extensions(args.new_extension_dir)
 
-matching_extensions = []
-
-for extension in old_extensions.keys():
-    if extension in new_extensions:
-        matching_extensions.append(extension)
+matching_extensions = [extension for extension in old_extensions if extension in new_extensions]
 
 check_passed = True
 error_message = ""

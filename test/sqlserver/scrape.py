@@ -36,9 +36,7 @@ def transform_result_set(tblstr):
     print("REQUIRE(result->ColumnCount() == %d);" % cols)
     lineiterator = iter(tblstr.splitlines())
     in_data = False
-    result = []
-    for c in range(0, cols):
-        result.append([])
+    result = [[] for _ in range(cols)]
 
     for line in lineiterator:
         if '---' in line:
