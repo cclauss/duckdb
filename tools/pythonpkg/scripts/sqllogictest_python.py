@@ -28,8 +28,7 @@ TEST_DIRECTORY_PATH = os.path.join(script_path, 'duckdb_unittest_tempdir')
 class SQLLogicTestExecutor(SQLLogicRunner):
     def __init__(self, build_directory: Optional[str] = None):
         super().__init__(build_directory)
-        self.SKIPPED_TESTS = set(
-            [
+        self.SKIPPED_TESTS = {
                 'test/sql/types/map/map_empty.test',
                 'test/extension/wrong_function_type.test',  # <-- JSON is always loaded
                 'test/sql/insert/test_insert_invalid.test',  # <-- doesn't parse properly
@@ -54,8 +53,7 @@ class SQLLogicTestExecutor(SQLLogicRunner):
                 'test/sql/pragma/profiling/test_custom_profiling_rows_scanned.test',  # we perform additional queries that mess with the expected metrics
                 'test/sql/pragma/profiling/test_custom_profiling_disable_metrics.test',  # we perform additional queries that mess with the expected metrics
                 'test/sql/pragma/profiling/test_custom_profiling_result_set_size.test',  # we perform additional queries that mess with the expected metrics
-            ]
-        )
+            }
         # TODO: get this from the `duckdb` package
         self.AUTOLOADABLE_EXTENSIONS = [
             "arrow",

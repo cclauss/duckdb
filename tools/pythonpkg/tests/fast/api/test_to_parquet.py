@@ -40,7 +40,7 @@ class TestToParquet(object):
     def test_field_ids(self):
         temp_file_name = os.path.join(tempfile.mkdtemp(), next(tempfile._get_candidate_names()))
         rel = duckdb.sql('''SELECT 1 as i, {j: 128} AS my_struct''')
-        rel.to_parquet(temp_file_name, field_ids=dict(i=42, my_struct={'__duckdb_field_id': 43, 'j': 44}))
+        rel.to_parquet(temp_file_name, field_ids={"i": 42, "my_struct": {'__duckdb_field_id': 43, 'j': 44}})
         parquet_rel = duckdb.read_parquet(temp_file_name)
         assert rel.execute().fetchall() == parquet_rel.execute().fetchall()
         assert (
