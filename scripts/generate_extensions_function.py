@@ -428,13 +428,12 @@ Please double check if '{args.extension_dir}' is the right location to look for 
     ) -> Dict[Function, List[ExtensionFunctionOverload]]:
         result = {}
         for function, function_overloads in overloads.items():
-            extension_overloads = []
-            for overload in function_overloads:
-                extension_overloads.append(
-                    ExtensionFunctionOverload(
-                        extension_name, overload.name, overload.type, overload.parameters, overload.return_type
-                    )
+            extension_overloads = [
+                ExtensionFunctionOverload(
+                    extension_name, overload.name, overload.type, overload.parameters, overload.return_type
                 )
+                for overload in function_overloads
+            ]
             result[function] = extension_overloads
         return result
 

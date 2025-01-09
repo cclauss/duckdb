@@ -167,12 +167,7 @@ namespace duckdb {{
         return string
 
 
-files: List[ModuleFile] = []
-for name, value in json_data.items():
-    if value['full_path'] != value['name']:
-        continue
-    files.append(ModuleFile(value))
-
+files: List[ModuleFile] = [ModuleFile(value) for value in json_data.values() if value['full_path'] == value['name']]
 for file in files:
     content = file.to_string()
     path = f'src/include/duckdb_python/import_cache/modules/{file.file_name}'
@@ -236,10 +231,7 @@ with open(import_cache_path, "w") as f:
 
 
 def get_module_file_path_includes(files: List[ModuleFile]):
-    includes = []
-    for file in files:
-        includes.append(f'#include "duckdb_python/import_cache/modules/{file.file_name}"')
-    return '\n'.join(includes)
+    return '\n'.join(f'#include "duckdb_python/import_cache/modules/{file.file_name}"' for file in files)
 
 
 module_includes = get_module_file_path_includes(files)

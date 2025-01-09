@@ -22,8 +22,9 @@ def generate_scope_code(file):
     for setting in SettingsList:
         if setting.scope in VALID_SCOPE_VALUES:  # valid setting_scope values
             new_entries.append(f"DUCKDB_{setting.scope}({setting.struct_name})")
-            for alias in setting.aliases:
-                new_entries.append(f"DUCKDB_{setting.scope}_ALIAS(\"{alias}\", {setting.struct_name})")
+            new_entries.extend(
+                f"DUCKDB_{setting.scope}_ALIAS(\"{alias}\", {setting.struct_name})" for alias in setting.aliases
+            )
         else:
             raise ValueError(f"Setting {setting.name} has invalid input scope value")
 

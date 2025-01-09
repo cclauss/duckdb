@@ -28,7 +28,7 @@ with open(input_json_file_path, "r") as json_file:
 
 # Function to filter entries based on duckdb_arch values
 def filter_entries(data, arch_values):
-    for os, config in data.items():
+    for config in data.values():
         if "include" in config:
             config["include"] = [entry for entry in config["include"] if entry["duckdb_arch"] not in arch_values]
         if not config["include"]:
@@ -56,10 +56,8 @@ if select_os:
 elif args.deploy_matrix:
     deploy_archs = []
 
-    for os, config in filtered_data.items():
-        if "include" in config:
-            for item in config["include"]:
-                deploy_archs.append({"duckdb_arch": item["duckdb_arch"]})
+    for config in filtered_data.values():
+        deploy_archs.extend({"duckdb_arch": item["duckdb_arch"]} for item in config.get("include", []))
 
     filtered_data = {"include": deploy_archs}
 

@@ -33,9 +33,7 @@ def get_files():
     os.chdir(path)
     path = os.path.join('data', 'parquet-testing')
     for root, dirs, files in os.walk(path):
-        for file in files:
-            if file.endswith(".parquet"):
-                files_path.append(os.path.join(root, file))
+        files_path.extend(os.path.join(root, file) for file in files if file.endswith(".parquet"))
     return files_path
 
 

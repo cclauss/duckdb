@@ -36,12 +36,11 @@ class TestPythonMultithreading(object):
         duckdb_con.execute("""CREATE OR REPLACE TABLE my_inserts (thread_name varchar)""")
 
         thread_count = 3
-        threads = []
-
         # Kick off multiple threads (in the same process)
         # Pass in the same connection as an argument, and an object to store the results
-        for i in range(thread_count):
-            threads.append(Thread(target=insert_from_cursor, args=(duckdb_con,), name='my_thread_' + str(i)))
+        threads = [
+            Thread(target=insert_from_cursor, args=(duckdb_con,), name=f'my_thread_{i}') for i in range(thread_count)
+        ]
 
         for thread in threads:
             thread.start()
@@ -86,12 +85,11 @@ class TestPythonMultithreading(object):
         duckdb_con.execute("""CREATE OR REPLACE TABLE my_inserts (thread_name varchar)""")
 
         thread_count = 3
-        threads = []
-
         # Kick off multiple threads (in the same process)
         # Pass in the same connection as an argument, and an object to store the results
-        for i in range(thread_count):
-            threads.append(Thread(target=insert_from_cursor, args=(duckdb_con,), name='my_thread_' + str(i)))
+        threads = [
+            Thread(target=insert_from_cursor, args=(duckdb_con,), name=f'my_thread_{i}') for i in range(thread_count)
+        ]
         for thread in threads:
             thread.start()
 
@@ -110,12 +108,12 @@ class TestPythonMultithreading(object):
         duckdb_con.execute("""CREATE OR REPLACE TABLE my_inserts (thread_name varchar)""")
 
         thread_count = 3
-        threads = []
-
         # Kick off multiple threads (in the same process)
         # Pass in the same connection as an argument, and an object to store the results
-        for i in range(thread_count):
-            threads.append(Thread(target=insert_from_same_connection, args=(duckdb_con,), name='my_thread_' + str(i)))
+        threads = [
+            Thread(target=insert_from_same_connection, args=(duckdb_con,), name=f'my_thread_{i}')
+            for i in range(thread_count)
+        ]
         for thread in threads:
             thread.start()
 
