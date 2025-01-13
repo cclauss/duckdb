@@ -695,7 +695,7 @@ class DataFrame:
 
         if on is not None and not isinstance(on, list):
             on = [on]  # type: ignore[assignment]
-        if on is not None and not all([isinstance(x, str) for x in on]):
+        if on is not None and not all(isinstance(x, str) for x in on):
             assert isinstance(on, list)
             # Get (or create) the Expressions from the list of Columns
             on = [_to_column_expr(x) for x in on]
@@ -714,7 +714,7 @@ class DataFrame:
                 how = "inner"
             if on is None:
                 on = "true"
-            elif isinstance(on, list) and all([isinstance(x, str) for x in on]):
+            elif isinstance(on, list) and all(isinstance(x, str) for x in on):
                 # Passed directly through as a list of strings
                 on = on
             else:

@@ -39,7 +39,7 @@ for file in sys.argv[1:]:
         if 'overlay-ports' in data['vcpkg-configuration']:
             merged_overlay_ports += prefix_overlay_ports(data['vcpkg-configuration']['overlay-ports'], file)
 
-final_deduplicated_deps = list()
+final_deduplicated_deps = []
 dedup_set = set()
 
 for dep in dependencies_dict:

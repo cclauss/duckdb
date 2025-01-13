@@ -540,7 +540,7 @@ def result_is_hash(result):
         return False
     if parts[1] != "values" or parts[2] != "hashing" or len(parts[4]) != 32:
         return False
-    return all([x.islower() or x.isnumeric() for x in parts[4]])
+    return all(x.islower() or x.isnumeric() for x in parts[4])
 
 
 def result_is_file(result: str):
@@ -592,7 +592,7 @@ def sql_logic_test_convert_value(value, sql_type, is_sqlite_test: bool) -> str:
             duckdb.typing.BOOLEAN,
             duckdb.typing.DOUBLE,
             duckdb.typing.FLOAT,
-        ] or any([type_str in str(sql_type) for type_str in ['DECIMAL', 'HUGEINT']]):
+        ] or any(type_str in str(sql_type) for type_str in ['DECIMAL', 'HUGEINT']):
             return convert_value(value, 'BIGINT::VARCHAR')
     if sql_type == duckdb.typing.BOOLEAN:
         return "1" if convert_value(value, sql_type) else "0"
@@ -1277,8 +1277,8 @@ class SQLLogicContext:
         ]
         if unsupported_statements == []:
             return
-        types = set([x.__class__ for x in unsupported_statements])
-        error = f'skipped because the following statement types are not supported: {str(list([x for x in types]))}'
+        types = {x.__class__ for x in unsupported_statements}
+        error = f'skipped because the following statement types are not supported: {str(list(types))}'
         self.skiptest(error)
 
     def update_settings(self):

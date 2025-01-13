@@ -673,12 +673,12 @@ class MapType(DataType):
     def toInternal(self, obj: Dict[T, Optional[U]]) -> Dict[T, Optional[U]]:
         if not self.needConversion():
             return obj
-        return obj and dict((self.keyType.toInternal(k), self.valueType.toInternal(v)) for k, v in obj.items())
+        return obj and {self.keyType.toInternal(k): self.valueType.toInternal(v) for k, v in obj.items()}
 
     def fromInternal(self, obj: Dict[T, Optional[U]]) -> Dict[T, Optional[U]]:
         if not self.needConversion():
             return obj
-        return obj and dict((self.keyType.fromInternal(k), self.valueType.fromInternal(v)) for k, v in obj.items())
+        return obj and {self.keyType.fromInternal(k): self.valueType.fromInternal(v) for k, v in obj.items()}
 
 
 class StructField(DataType):
@@ -1068,16 +1068,16 @@ _atomic_types: List[Type[DataType]] = [
     TimestampNTZType,
     NullType,
 ]
-_all_atomic_types: Dict[str, Type[DataType]] = dict((t.typeName(), t) for t in _atomic_types)
+_all_atomic_types: Dict[str, Type[DataType]] = {t.typeName(): t for t in _atomic_types}
 
 _complex_types: List[Type[Union[ArrayType, MapType, StructType]]] = [
     ArrayType,
     MapType,
     StructType,
 ]
-_all_complex_types: Dict[str, Type[Union[ArrayType, MapType, StructType]]] = dict(
-    (v.typeName(), v) for v in _complex_types
-)
+_all_complex_types: Dict[str, Type[Union[ArrayType, MapType, StructType]]] = {
+    v.typeName(): v for v in _complex_types
+}
 
 
 _FIXED_DECIMAL = re.compile(r"decimal\(\s*(\d+)\s*,\s*(-?\d+)\s*\)")
@@ -1204,7 +1204,7 @@ class Row(tuple):
                 elif isinstance(obj, list):
                     return [conv(o) for o in obj]
                 elif isinstance(obj, dict):
-                    return dict((k, conv(v)) for k, v in obj.items())
+                    return {k: conv(v) for k, v in obj.items()}
                 else:
                     return obj
 

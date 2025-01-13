@@ -148,7 +148,7 @@ def construct_query(tuples) -> str:
 def construct_parameters(tuples, dbtype):
     parameters = []
     for row in tuples:
-        parameters.extend(list([duckdb.Value(x, dbtype) for x in row]))
+        parameters.extend([duckdb.Value(x, dbtype) for x in row])
     return parameters
 
 
@@ -163,7 +163,7 @@ class TestUDFNullFiltering(object):
     )
     @pytest.mark.parametrize('udf_type', ['arrow', 'native'])
     def test_null_filtering(self, duckdb_cursor, table_data: dict, test_type: Candidate, udf_type):
-        null_count = sum([1 for x in list(zip(*table_data.values())) if any([y == None for y in x])])
+        null_count = sum([1 for x in list(zip(*table_data.values())) if any(y == None for y in x)])
         row_count = len(table_data)
         table_data = {
             key: [None if not x else test_type.variant_one if x == 'x' else test_type.variant_two for x in value]

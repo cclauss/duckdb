@@ -14,7 +14,7 @@ def normalize_path(path):
         return os.path.sep.join(p.split('/'))
 
     if isinstance(path, list):
-        normed = map(lambda p: normalize(p), path)
+        normed = (normalize(p) for p in path)
         return list(normed)
 
     if isinstance(path, str):

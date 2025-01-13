@@ -15,7 +15,7 @@ class Visitor:
                 "Enum '{}' is an anonymous enum, please name it\n".format(cursor.doxygen[3:] if cursor.doxygen else '')
             )
 
-        enum_constants = dict()
+        enum_constants = {}
         for enum_const in cursor.values:
             name = enum_const.name.format()
             if enum_const.value is None:

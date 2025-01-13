@@ -92,7 +92,7 @@ class TestType(object):
         with pytest.raises(
             duckdb.InvalidInputException, match='Could not convert empty dictionary to a duckdb STRUCT type'
         ):
-            type = duckdb.typing.DuckDBPyType(dict())
+            type = duckdb.typing.DuckDBPyType({})
 
     def test_map_type(self):
         type = duckdb.map_type(duckdb.sqltype("BIGINT"), duckdb.sqltype("DECIMAL(10, 2)"))

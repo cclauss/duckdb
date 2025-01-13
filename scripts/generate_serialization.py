@@ -510,7 +510,7 @@ def generate_base_class_code(base_class):
             None,
             base_class.pointer_type,
         )
-    expressions = [x for x in base_class.children.items()]
+    expressions = list(base_class.children.items())
     expressions = sorted(expressions, key=lambda x: x[0])
 
     # set parameters
@@ -742,12 +742,12 @@ def check_children_for_duplicate_members(node: SerializableClass, parents: list,
             if member.name in seen_names:
                 # Print the inheritance tree
                 exit(
-                    f"Error: Duplicate member name \"{member.name}\" in class \"{node.name}\" ({' -> '.join(map(lambda x: x.name, parents))} -> {node.name})"
+                    f"Error: Duplicate member name \"{member.name}\" in class \"{node.name}\" ({' -> '.join((x.name for x in parents))} -> {node.name})"
                 )
             seen_names.add(member.name)
             if member.id in seen_ids:
                 exit(
-                    f"Error: Duplicate member id \"{member.id}\" in class \"{node.name}\" ({' -> '.join(map(lambda x: x.name, parents))} -> {node.name})"
+                    f"Error: Duplicate member id \"{member.id}\" in class \"{node.name}\" ({' -> '.join((x.name for x in parents))} -> {node.name})"
                 )
             seen_ids.add(member.id)
 
