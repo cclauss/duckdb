@@ -830,7 +830,7 @@ def main():
             K = list(printer.inverse_type_maps.keys())
             K.sort()
             for k in K:
-                if k.startswith("Ptr") or k.startswith("Ref"):
+                if k.startswith(("Ptr", "Ref")):
                     continue
                 v = ", ".join(printer.inverse_type_maps[k])
                 print(f"    {k} -> {v}")

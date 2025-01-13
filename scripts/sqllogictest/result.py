@@ -436,7 +436,7 @@ class SQLLogicDatabase:
 
 
 def is_regex(input: str) -> bool:
-    return input.startswith("<REGEX>:") or input.startswith("<!REGEX>:")
+    return input.startswith(("<REGEX>:", "<!REGEX>:"))
 
 
 def matches_regex(input: str, actual_str: str) -> bool:

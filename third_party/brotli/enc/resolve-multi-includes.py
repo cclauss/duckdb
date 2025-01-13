@@ -6,7 +6,7 @@ import os
 import re
 
 for filename in os.listdir('.'):
-    if not (filename.endswith('.cpp') or filename.endswith('.h')): 
+    if not (filename.endswith(('.cpp', '.h'))): 
         continue
 
     file_lines = open(filename, 'r').readlines()

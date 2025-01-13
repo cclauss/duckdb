@@ -36,7 +36,7 @@ def analyze_include_file(fpath, already_included_files, prev_include=""):
     include_chains[fpath][prev_include] += 1
 
     already_included_files.append(fpath)
-    if fpath.endswith('.h') or fpath.endswith('.hpp'):
+    if fpath.endswith((".h", ".hpp")):
         prev_include = fpath
     for include in includes:
         analyze_include_file(include, already_included_files, prev_include)
@@ -51,7 +51,7 @@ def analyze_includes(dir):
         fpath = os.path.join(dir, fname)
         if os.path.isdir(fpath):
             analyze_includes(fpath)
-        elif fname.endswith('.cpp') or fname.endswith('.c') or fname.endswith('.cc'):
+        elif fname.endswith((".cpp", ".c", ".cc")):
             analyze_include_file(fpath, [])
 
 
@@ -63,7 +63,7 @@ for entry in include_counts.keys():
     kws.append([entry, include_counts[entry]])
 
 kws.sort(key=lambda tup: -tup[1])
-for k in range(0, len(kws)):
+for k in range(len(kws)):
     include_file = kws[k][0]
     include_count = kws[k][1]
     print("------------------------------------------------------------")
@@ -74,5 +74,5 @@ for k in range(0, len(kws)):
     for chain in include_chains[include_file]:
         chainkws.append([chain, include_chains[include_file][chain]])
         chainkws.sort(key=lambda tup: -tup[1])
-    for l in range(0, min(5, len(chainkws))):
+    for l in range(min(5, len(chainkws))):
         print(chainkws[l])

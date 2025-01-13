@@ -295,7 +295,7 @@ def get_formatted_text(f, full_path, directory, ext):
         text = header_top + header_middle + header_bottom
         is_old_header = True
         for line in lines:
-            if not (line.startswith("//") or line.startswith("\n")) and is_old_header:
+            if not (line.startswith(('//', '\n'))) and is_old_header:
                 is_old_header = False
             if not is_old_header:
                 text += line

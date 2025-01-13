@@ -77,7 +77,7 @@ def compile_dir(dir, cache):
         fpath = os.path.join(dir, fname)
         if os.path.isdir(fpath):
             compile_dir(fpath, cache)
-        elif fname.endswith('.cpp') or fname.endswith('.hpp') or fname.endswith('.c') or fname.endswith('.cc'):
+        elif fname.endswith(('.cpp', '.hpp', '.c', '.cc')):
             try_compilation(fpath, cache)
 
 

@@ -244,7 +244,7 @@ def write_dir(dir):
         fpath = os.path.join(dir, fname)
         if os.path.isdir(fpath):
             text += write_dir(fpath)
-        elif fname.endswith('.cpp') or fname.endswith('.c') or fname.endswith('.cc'):
+        elif fname.endswith(('.cpp', '.c', '.cc')):
             text += write_file(fpath)
     return text
 
@@ -437,7 +437,7 @@ def gather_files(dir, source_files, header_files):
         fpath = os.path.join(dir, fname)
         if os.path.isdir(fpath):
             gather_files(fpath, source_files, header_files)
-        elif fname.endswith('.cpp') or fname.endswith('.c') or fname.endswith('.cc'):
+        elif fname.endswith(('.cpp', '.c', '.cc')):
             gather_file(fpath, source_files, header_files)
 
 

@@ -8,7 +8,7 @@ from conftest import NumpyPandas, ArrowPandas
 
 
 def run_parallel_queries(main_table, left_join_table, expected_df, pandas, iteration_count=5):
-    for i in range(0, iteration_count):
+    for i in range(iteration_count):
         output_df = None
         sql = """
         select

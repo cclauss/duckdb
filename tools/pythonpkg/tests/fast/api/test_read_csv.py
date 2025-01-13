@@ -360,7 +360,6 @@ class TestReadCSV(object):
         class CustomIO:
             def __init__(self):
                 self.loc = 0
-                pass
 
             def seek(self, loc):
                 self.loc = loc

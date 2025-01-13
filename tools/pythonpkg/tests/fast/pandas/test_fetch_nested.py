@@ -55,7 +55,7 @@ def list_test_cases():
         }),
         ("SELECT a from (SELECT LIST(i) as a FROM range(10000) tbl(i)) as t", {
             'a': [
-                list(range(0, 10000))
+                list(range(10000))
             ]
         }),
         ("SELECT LIST(i) as a FROM range(5) tbl(i) group by i%2 order by all", {

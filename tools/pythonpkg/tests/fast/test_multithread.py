@@ -36,7 +36,7 @@ class DuckDBThreaded:
         queue = Queue.Queue()
 
         # Create all threads
-        for i in range(0, self.duckdb_insert_thread_count):
+        for i in range(self.duckdb_insert_thread_count):
             self.threads.append(
                 threading.Thread(
                     target=self.thread_function, args=(duckdb_conn, queue, self.pandas), name='duckdb_thread_' + str(i)
@@ -45,13 +45,13 @@ class DuckDBThreaded:
 
         # Record for every thread if they succeeded or not
         thread_results = []
-        for i in range(0, len(self.threads)):
+        for i in range(len(self.threads)):
             self.threads[i].start()
             thread_result: bool = queue.get(timeout=60)
             thread_results.append(thread_result)
 
         # Finish all threads
-        for i in range(0, len(self.threads)):
+        for i in range(len(self.threads)):
             self.threads[i].join()
 
         # Assert that the results are what we expected

@@ -28,7 +28,7 @@ def find_tests_recursive(dir, excluded_paths):
             continue
         if os.path.isdir(path):
             test_list += find_tests_recursive(path, excluded_paths)
-        elif path.endswith('.test') or path.endswith('.test_slow'):
+        elif path.endswith((".test", ".test_slow")):
             test_list.append(path)
     return test_list
 

@@ -37,7 +37,7 @@ def transform_result_set(tblstr):
     lineiterator = iter(tblstr.splitlines())
     in_data = False
     result = []
-    for c in range(0, cols):
+    for c in range(cols):
         result.append([])
 
     for line in lineiterator:
@@ -57,7 +57,7 @@ def transform_result_set(tblstr):
             raise ValueError('Not enough fields')
 
         # print("// ", end='')
-        for c in range(0, cols):
+        for c in range(cols):
             f = fields[c].strip()
             if f == '':
                 raise ValueError('Empty field')
@@ -79,7 +79,7 @@ def transform_result_set(tblstr):
             result[c].append(f)
         # print()
 
-    for c in range(0, cols):
+    for c in range(cols):
         print('REQUIRE(CHECK_COLUMN(result, %d, {%s}));' % (c, ','.join(result[c])))
 
 
